@@ -134,5 +134,11 @@ find "${extract_out}/dtbs" -type f -name "*.dtb" \
 cp -f "${extract_out}/dtbo.img" ./images/dtbo.img
 echo "Done"
 
+# Add touch modules to vendorboot for recovery
+for module in xiaomi_touch.ko goodix_core.ko focaltech_touch.ko; do
+    cp modules/vendor_dlkm/$module modules/vendor_boot/
+    echo $module >> modules/vendor_boot/modules.load.recovery
+done
+
 rm -rf $extract_out
 echo "Extracted files successfully"
